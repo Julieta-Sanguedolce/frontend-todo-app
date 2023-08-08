@@ -12,7 +12,7 @@ export interface TodoType {
 }
 
 function App(): JSX.Element {
-  const apiURL = "http://localhost:4000/";
+  const apiURL = "https://to-do-app-0386.onrender.com";
   let counterID = 3;
   const [todoText, setTodoText] = useState("");
   const [todoDate, setTodoDate] = useState("");
