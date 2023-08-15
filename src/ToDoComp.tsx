@@ -2,10 +2,10 @@ import { TodoType } from "./App";
 import { useState } from "react";
 
 interface ToDoProp {
-  task: TodoType;
+  todo: TodoType;
 }
 
-export function ToDoComp({ task }: ToDoProp): JSX.Element {
+export function ToDoComp({ todo }: ToDoProp): JSX.Element {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
@@ -14,8 +14,8 @@ export function ToDoComp({ task }: ToDoProp): JSX.Element {
 
   return (
     <div>
-      <h2>{task.action}</h2>
-      <p>Complete by: {task.date}</p>
+      <h2>{todo.task}</h2>
+      <p>Complete by: {todo.due_date}</p>
       <label>
         Completed?
         <input

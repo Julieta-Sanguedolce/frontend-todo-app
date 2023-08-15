@@ -5,15 +5,13 @@ import axios from "axios";
 import { ToDoComp } from "./ToDoComp";
 
 export interface TodoType {
-  id: number;
-  action: string;
-  date: string;
-  completed: string;
+  task: string;
+  due_date: string;
+  completed: boolean;
 }
 
 function App(): JSX.Element {
   const apiURL = "https://to-do-app-0386.onrender.com";
-  let counterID = 3;
   const [todoText, setTodoText] = useState("");
   const [todoDate, setTodoDate] = useState("");
   const [todoList, setTodoList] = useState<TodoType[]>([]);
@@ -21,17 +19,16 @@ function App(): JSX.Element {
 
   async function fetchToDoList() {
     const response = await axios.get(apiURL);
-    const listOfTodos = response.data;
+    const listOfTodos = await response.data;
     setTodoList(listOfTodos);
+    console.log(listOfTodos);
   }
 
   function addNewTodo() {
-    counterID++;
     const newTodo: TodoType = {
-      id: counterID,
-      action: todoText,
-      date: todoDate,
-      completed: "No",
+      task: todoText,
+      due_date: todoDate,
+      completed: false,
     };
     axios.post(apiURL, newTodo);
     fetchToDoList();
@@ -59,9 +56,9 @@ function App(): JSX.Element {
       </div>
       <p>To do List</p>
       <button onClick={fetchToDoList}>Update list</button>
-      {todoList.map((e) => (
-        <ToDoComp key={e.id} task={e} />
-      ))}
+      {/* {todoList.map((e) => (
+        <ToDoComp key={e.id} todo={e} />
+      ))} */}
     </div>
   );
 }
