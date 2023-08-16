@@ -1,37 +1,35 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./utils/App.css";
 import axios from "axios";
 import { ToDoComp } from "./ToDoComp";
+import { TodoInfo, TodoType } from "./Types";
 
-export interface TodoType {
-  task: string;
-  due_date: string;
-  completed: boolean;
-}
+export const apiURL = "https://to-do-app-0386.onrender.com";
 
 function App(): JSX.Element {
-  const apiURL = "https://to-do-app-0386.onrender.com";
   const [todoText, setTodoText] = useState("");
   const [todoDate, setTodoDate] = useState("");
-  const [todoList, setTodoList] = useState<TodoType[]>([]);
+  const [todoList, setTodoList] = useState<TodoInfo[]>([]);
   const minDate = new Date().toJSON().split("T")[0];
 
   async function fetchToDoList() {
     const response = await axios.get(apiURL);
     const listOfTodos = await response.data;
     setTodoList(listOfTodos);
-    console.log(listOfTodos);
   }
+
+  useEffect(() => {
+    fetchToDoList();
+  }, [todoList]);
 
   function addNewTodo() {
     const newTodo: TodoType = {
       task: todoText,
-      due_date: todoDate,
+      due_date: new Date(todoDate).toISOString().split("T")[0],
       completed: false,
     };
     axios.post(apiURL, newTodo);
-    fetchToDoList();
   }
 
   return (
@@ -54,11 +52,10 @@ function App(): JSX.Element {
         <br />
         <button onClick={addNewTodo}>ADD</button>
       </div>
-      <p>To do List</p>
-      <button onClick={fetchToDoList}>Update list</button>
-      {/* {todoList.map((e) => (
+      <h1>To do List</h1>
+      {todoList.map((e) => (
         <ToDoComp key={e.id} todo={e} />
-      ))} */}
+      ))}
     </div>
   );
 }

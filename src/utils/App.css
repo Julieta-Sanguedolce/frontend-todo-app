@@ -15,3 +15,16 @@
   padding: 0.5rem;
   justify-content: center;
 }
+
+.todoComp {
+  text-align: left;
+}
+
+input.custom-placeholder {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  /* Add any other styling you want here */
+}
