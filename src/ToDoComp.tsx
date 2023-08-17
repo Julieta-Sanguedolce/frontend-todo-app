@@ -19,7 +19,11 @@ export function ToDoComp({ todo }: ToDoProp): JSX.Element {
       "Please edit the todo description: " + todo.task
     );
     if (userInput !== null) {
-      axios.put(apiURL + "/" + todo.id, userInput);
+      const newTask = {
+        task: userInput,
+      };
+      await axios.put(apiURL + "/" + todo.id, newTask);
+      alert("Todo updated successfully!");
     }
   }
 
