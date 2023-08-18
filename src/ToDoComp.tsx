@@ -2,6 +2,16 @@ import { TodoInfo } from "./Types";
 import axios from "axios";
 import { apiURL } from "./App";
 import "./utils/App.css";
+import {
+  Button,
+  ButtonGroup,
+  Switch,
+  FormControl,
+  FormLabel,
+  Card,
+  CardBody,
+  Heading,
+} from "@chakra-ui/react";
 
 interface ToDoProp {
   todo: TodoInfo;
@@ -32,15 +42,37 @@ export function ToDoComp({ todo }: ToDoProp): JSX.Element {
   }
 
   return (
-    <div className="todoComp">
-      <hr />
-      <h3>{todo.task}</h3>
-      <p>Complete by: {formattedDate}</p>
-      <button onClick={handleDeleteTodo}>Delete</button>
-      <button onClick={handleEditTodo}>Edit</button>
-      <button onClick={markAsCompleted}>
-        {todo.completed ? "Completed" : "Mark as completed"}
-      </button>
-    </div>
+    <Card
+      direction={{ base: "column", sm: "row" }}
+      overflow="hidden"
+      variant="outline"
+    >
+      <CardBody width="600px" margin="20px">
+        <Heading size="lg" margin="20px">
+          {todo.task}
+        </Heading>
+        <Heading size="l" margin="20px">
+          Complete by: {formattedDate}
+        </Heading>
+        <ButtonGroup variant="solid" spacing="6" margin="20px">
+          <Button colorScheme="red" variant="solid" onClick={handleDeleteTodo}>
+            Delete
+          </Button>
+          <Button colorScheme="teal" onClick={handleEditTodo}>
+            Edit
+          </Button>
+        </ButtonGroup>
+        <FormControl>
+          <FormLabel margin="20px">Status</FormLabel>
+          <Switch
+            colorScheme="green"
+            isChecked={todo.completed}
+            onChange={markAsCompleted}
+          >
+            {todo.completed ? "Completed" : "Mark as completed"}
+          </Switch>
+        </FormControl>
+      </CardBody>
+    </Card>
   );
 }
