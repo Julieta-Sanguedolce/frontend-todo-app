@@ -5,7 +5,6 @@ import { ToDoComp } from "./ToDoComp";
 import { TodoInfo, TodoType } from "./Types";
 import {
   Heading,
-  Text,
   Input,
   Button,
   FormControl,
